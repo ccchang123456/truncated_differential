@@ -1,0 +1,53 @@
+# Truncated Differentials and Experimental Verifications on Round-Reduced AES and Small-AES with Concrete S-boxes
+
+This repository contains the experiments for expectation cryptanalysis on round-reduced AES and its small-scale version [CMR05].
+
+## Contents
+The directory contains several JAVA implementations including four parts.  
+
+(1) Calculation of truncated differentials, which begin with "Differential_". 
+
+- `Differential_NewComputeDifferentialForAES_4R_Z1_0_A1.java`
+  The calculation of probability of Bao et al.'s 4-round truncated differentials. Z1_0 means inactive in the byte 0 of the first column of \Delta X_{4} . 
+  A1 means the first thread corresponding to \Delta X_{2}^{SB}[12]=1.
+
+- `Differential_NewComputeDifferentialForAES_4R_Z1_00_A1.java`
+  The calculation of probability of our 4-round truncated differentials. Z1_00 means inactive in the byte 0 ,1 of the first column of \Delta X_{4} . 
+  A1 means the first thread corresponding to \Delta X_{2}^{MC}[0]=1.
+
+- `Differential_NewComputeDifferentialForSMALLAES.java`
+  The calculation of probability of our 4/5-round truncated differentials on Small-AES with different 4-bit S-boxes.
+
+(2) Experimental verifications of probability deduced from our algorithms, which begin with "Experiment_". 
+
+- For example,  `Experiment_FourRoundDistinguisher_PRESENT_28_key0.java`
+  The experimental verification for Bao et al.'s 4-round distinguisher on Small-AES with the S-box of Present using 2^28 δ-sets under key0.
+......
+
+- For example,  `Experiment_FourRoundDistinguisher_PRESENT_Conditional_12_key0.java`
+  The experimental verification for our 4-round distinguisher on Small-AES with the S-box of Present using 2^12 δ-sets under key0.
+......
+
+(3) Tools 
+
+- `Tool_ComputeResultForAES_4R.java`
+  The tool calculates the mean value of outputs of  `Differential_NewComputeDifferentialForAES_4R_Z1_0_A1.java`  or  `Differential_NewComputeDifferentialForAES_4R_Z1_00_A1.java`.
+
+- `Tool_GenerateRandomKey.java`
+  The tool generates random key for Small-AES.
+
+- `Tool_GenerateRandomKeyForAES.java`
+  The tool generates random key for AES.
+
+(4) Experimental verifications of distinguishing attack of 4-round AES
+
+- 'Experiment_FourRoundDistinguisherForAES_25_deltaSet0.java'
+Generate random \delta-sets, and count the results, c1 and c2, of each distinguishing attack. 
+Each \delta-set satisfies that the byte with index 1 traverses over all possibilities, and the other bytes take random constants. The results are shown in folder 'result_x'.
+Remark: 'deltaSet0' in the file name represents the thread 0 to perform the code, and we use 100 threads to execute simultaneously.
+
+- 'Experiment_FourRoundDistinguishingAttack_AES.java'
+Compare the results of the above algorithm with threshold value, and compute the success rate. The results are shown in 'result_x.txt'.
+
+
+
